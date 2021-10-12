@@ -1,0 +1,45 @@
+{
+  "port": 16000,
+  "env": "qa",
+  "api-mount": "/api",
+  "email": {
+    "no_reply": {
+      "user": "qa@napses.com",
+      "password": "2AdWS%GL"
+    }
+  },
+  "jwt_secret": "jwt_secret_key",
+  "enableGoogleLogger": false,
+  "logger": {
+    "project": "livspace-qa",
+    "keyFile": "./logs_config/production.json"
+  },
+  "server": true,
+  "sms": {
+    "TWILIO_ACCOUNT_SID": "ACfcff879e7bb6fa065e3c29dc4322aed0",
+    "TWILIO_AUTH_TOKEN": "2fa26337e88487a49f069789952f40ce",
+    "TWILIO_NUMBER": "+19852431074"
+  },
+  "otp": {
+    "expires_in": 5
+  },
+  "proxyApiUrl": "http://localhost:3000/api/proxy",
+  "google": {
+    "GOOGLE_CALLBACK_URL": "https://livspace.napses.in/api/auth/google/callback",
+    "GOOGLE_CLIENT_ID": "746082644709-58j6vu3s0vr9sgi3vic5cojrkrmqf56h.apps.googleusercontent.com",
+    "GOOGLE_CLIENT_SECRET": "J8cCLBj7xPP6vCPrMss_t-UJ",
+    "successRedirect": {
+      "admin": "https://livspace.napses.in/admin/login/success"
+    },
+    "failureRedirect": {
+      "admin": "https://livspace.napses.in/admin/login"
+    }
+  },
+  "awsS3": {
+    "AWS_ACCESS_KEY_ID": "AKIA4ZFHPE7VT7IXYHED",
+    "AWS_SECRET_ACCESS_KEY": "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",
+    "region": "ap-south-1",
+    "bucketName": "livspace-qa",
+    "url": "https://livspace-qa.s3.ap-south-1.amazonaws.com/"
+  }
+}
