@@ -17,7 +17,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-require("./passport")(app);
+// require("./passport")(app);
 require('./api-routes');
 
 app.use((req, res, next) => {
