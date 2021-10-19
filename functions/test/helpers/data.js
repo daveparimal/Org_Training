@@ -1,16 +1,16 @@
 const DeleteEntityById = require("test/data/delete-entity-by-id");
 const definations = require("test/data/factory").factory;
-const CreateUserQuery = require("resources/users/queries/create-user-query.js");
-const CreateUserOtpQuery = require("resources/mobile_auths/queries/create-user-otp-query.js");
-const CreateGoogleAuthQuery = require("resources/users/queries/create-google-auth.js");
-const CreateEmailQuery = require("resources/users/queries/create-email-query.js");
-const CreateRoleQuery = require("resources/roles/queries/create-role-query");
-const CreateServiceQuery = require('resources/services/queries/create-service-query.js');
-const CreateServiceCategoryQuery = require('resources/service-categories/queries/create-service-category-query.js');
-const CreateIdeaQuery = require("resources/ideas/queries/create-idea-query.js");
-const CreateContentMediaQuery = require('resources/content-medias/queries/create-content-media-query');
-const CreateZoneQuery = require('resources/zones/queries/create-zone-query.js');
-const CreateOrganisationQuery = require('resources/organisation/queries/create-organisation-query');
+// const CreateUserQuery = require("resources/users/queries/create-user-query.js");
+// const CreateUserOtpQuery = require("resources/mobile_auths/queries/create-user-otp-query.js");
+// const CreateGoogleAuthQuery = require("resources/users/queries/create-google-auth.js");
+// const CreateEmailQuery = require("resources/users/queries/create-email-query.js");
+// const CreateRoleQuery = require("resources/roles/queries/create-role-query");
+// const CreateServiceQuery = require('resources/services/queries/create-service-query.js');
+// const CreateServiceCategoryQuery = require('resources/service-categories/queries/create-service-category-query.js');
+// const CreateIdeaQuery = require("resources/ideas/queries/create-idea-query.js");
+// const CreateContentMediaQuery = require('resources/content-medias/queries/create-content-media-query');
+// const CreateZoneQuery = require('resources/zones/queries/create-zone-query.js');
+// const CreateOrganisationQuery = require('resources/organisation/queries/create-organisation-query');
 
 const dontBuild = () => new Promise((resolve, reject) => resolve({}));
 
@@ -210,17 +210,17 @@ const zone = {
 };
 
 module.exports = {
-  buildEntity,
-  user,
-  google_auth,
-  mobile_auth,
-  user_email,
-  role,
-  service,
-  service_category,
-  idea,
-  contentMedia,
-  pricingDetail,
-  zone,
-  organisation
+  // buildEntity,
+  // user,
+  // google_auth,
+  // mobile_auth,
+  // user_email,
+  // role,
+  // service,
+  // service_category,
+  // idea,
+  // contentMedia,
+  // pricingDetail,
+  // zone,
+  // organisation
 };

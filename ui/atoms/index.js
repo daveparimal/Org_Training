@@ -24,32 +24,10 @@ import Toaster from "./Toaster";
 import Span from "./Span";
 import Breadcrumbs from "./Breadcrumbs";
 import FileUploader from "./FileUploader"
+import InputFields from "./inputFields";
+import InputHeading from "./inputHeading";
 
 export {
-  Breadcrumbs,
-  Span,
-  TextField,
-  TextArea,
-  Dropdown,
-  Card,
-  Paginator,
-  Modal,
-  Avatar,
-  Button,
-  Image,
-  Option,
-  Select,
-  Tab,
-  TabSection,
-  Tag,
-  ToolTip,
-  UploadDrag,
-  Icon,
-  Heading,
-  OTPInput,
-  Checkbox,
-  InputLabel,
-  Toaster,
-  FileUploader,
-  RadioButton,
+  InputFields,
+  InputHeading
 };

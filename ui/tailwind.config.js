@@ -98,6 +98,13 @@ module.exports = {
 			'md-5': '0px 2px 8px rgba(38, 39, 61, 0.16)',
 			'md-6': '0px 0px 2px rgba(0, 0, 0, 0.2)'
 		},
+		  minWidth: {
+       '0': '0',
+       '1/4': '25%',
+       '1/2': '50%',
+       '3/4': '75%',
+       'full': '100%',
+      }
 	},
 	variants: {
 		extend: {
