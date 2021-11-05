@@ -1,0 +1,112 @@
+API Session 1 & 2 notes:
+Run startup_api.sh to run server
+functions folder containts backend code
+ui folder constains frontend code
+lib folder contains all the utility functions
+API's are written under resources folder
+Inside resources folder created a folder with the route name (e.g. users) and an another folder called "apis" and place all the create/get/put/patch files under it
+While writing API, below is the code skeleton
+-----------------------------------------------------------------
+const Route = require ('route')
+const {logInfo} = required ('lib/functional/logger');
+const { respond } = require('lib')
+
+async function post(req) {
+    
+    const {name} = req.body;
+    logInfo('Request to create user', {name});
+    
+    const userId = uuid.v4();
+    const response = await db.execute(new CreateUserQuery(userId, name));
+
+    return respond(response, 'Successfully created user', 'Failed to create user'); 
+}
+
+Route.withoutSecurity().noAuth().post('/users', post).bind();
+
+// withoutSecurity() -> API can be accessed without token. 
+// withSecurity() -> API cannot be accessed without token.
+// noAuth() -> API can be accssed by any type of user.
+// respond is a method over res (which we use generally like res.send()...)
+// General response structure:
+    {
+        status:true/false
+        message:'Success message' / 'Fail message',
+        entity: <response_body>
+    }
+----------------------------------------------------------------------------
+Add all the routes in a given folder inside user-routes. 
+E.g.
+for the above we will Add
+require('resources/users/apis/get-all-users.js');
+
+This user-routes file is then added to api-routes.js file in function folder
+require('resources/users/users-routes.js');
+
+This return statement for API will give error:
+return respond(response, 'Successfully created user', 'Failed to create user'); 
+
+To get the response we need to requrie below:
+const Result = require("folktale/result");
+
+Then use Result as
+return respond(Result.Ok(response), 'Successfully created user', 'Failed to create user');
+    For error you pass
+    Result.Error()
+
+What is Result?
+In functional programing, there is something called Monads and Result is a Monad.
+To understand this:
+Pure functions - Functions with no side effects. Which will give you same result when you give the same input
+e.g.
+add(1, 2) output is 3
+
+Impure function has side functions. E.g. say we are trying to get a user from db with id 100, then 4 results are possible
+db.getUser(100)  can give {id:100, name:user1}
+db.getUser(100)  can give {id:100, name:user2} in case user gets updated
+db.getUser(100) can give no results in case the user is deleieted.
+So, db.getUser(100) is an impure function
+
+If a function writes to db, then also its considered as impure function.
+
+For making impure functions pure, we use Monads
+E.g.
+const getUser = (id) => {
+    try {
+        // if get user Successfull
+        return Result.Ok()
+    } catch {
+        return Result.Error()
+    }
+}
+
+so, in case getUser(100) is available Result is returned
+in case getUser(100) is not available Result is returned.
+
+So, read more about folktale, with Result we can avoid using try/catch
+
+---------------------------------------------------------------------------------------------------
+To run dev environment do the following:
+
+In config.json change the username of psql to "postgres"
+
+First Time:
+
+1) cd functions
+2) docker-compose up -d
+3) npm install
+4) sequelize db:create --env=dev
+5) sequelize db:migrate --env=dev
+6) SET NODE_ENV=dev 
+7) npm run devServer
+
+Later:
+1) cd functions
+2) docker-compose up -d
+3) sequelize db:migrate --env=dev
+4) SET NODE_ENV=dev 
+5) npm run devServer
+
+Before shutting down
+1) Terminate node server
+2) docker-compose down

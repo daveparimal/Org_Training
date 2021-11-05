@@ -1,6 +1,6 @@
 {
   "dev": {
-    "username": "root",
+    "username": "postgres",
     "password": "root",
     "database": "DEV-Postgresslivspace",
     "host": "127.0.0.1",
@@ -20,5 +20,5 @@
     "host": "164.52.208.173",
     "dialect": "postgres",
     "seederStorage": "sequelize"
-}
+  }
 }
