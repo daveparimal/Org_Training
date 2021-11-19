@@ -1,56 +1,57 @@
 const Route = require("route");
 const { logInfo } = require("lib/functional/logger");
-const { respond } = require("lib");
-const Result = require("folktale/result");
-const Models = require("models");
+const { respond, whenResult } = require("lib");
+const db = require("db/repository");
+const CreateUserQuery = require("resources/users/queries/create-user-query");
+const CreateUserValidation = require("../validators/create-user-validation");
 
-async function getUsers(req) {
-  logInfo("Request to create user");
+// const Result = require("folktale/result");
+// const Models = require("models");
+
+async function postUser(req) {
+  // const user = req.body;
+  const { full_name, country_code, email, aadhaar_id } = req.body;
+  logInfo("Request to create user", {
+    full_name,
+    country_code,
+    email,
+    aadhaar_id,
+  });
 
   //   const userId = uuid.v4();
-  //   const response = await db.execute(new CreateUserQuery(userId, name));
 
-  const allUsers = await getAllUsers();
-  // return respond(
-  //   Result.Ok(allUsers),
-  //   "Successfully fetched users",
-  //   "Failed to fetch users"
-  // );
-  return respond(
-    allUsers,
-    "Successfully fetched users",
-    "Failed to fetch users"
-  );
+  const validationResult = await CreateUserValidation.validate({
+    full_name,
+    email,
+    country_code,
+    aadhaar_id,
+  });
+
+  // whever the result is successful (validationResult is successful), execute the database.execute method.
+  // If in case of failure return the error to the response variable.
+
+  const response = await whenResult(() => {
+    return db.execute(
+      new CreateUserQuery(full_name, country_code, aadhaar_id, email)
+    );
+  })(validationResult);
+
+  // const userResp = await addUser(user);
+
+  // return respond(userResp, "Successfully added user", "Failed to add user");
+  return respond(response, "Successfully added user", "Failed to add user");
 }
 
-const getAllUsers = (req) => {
-  // return Result.Ok([
-  //   {
-  //     id: 1,
-  //     name: "user1",
-  //     email: "user1@gmail.com",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "user2",
-  //     email: "user2@gmail.com",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "user2",
-  //     email: "user2@gmail.com",
-  //   },
-  // ]);
+// const addUser = (user) => {
+//   return new Promise((resolve, reject) => {
+//     Models.Users.create(user)
+//       .then((user) => {
+//         resolve(Result.Ok(user));
+//       })
+//       .catch((error) => {
+//         resolve(Result.Error(error));
+//       });
+//   });
+// };
 
-  return new Promise((resolve, reject) => {
-    Models.User.findAll()
-      .then((users) => {
-        resolve(Reult.Ok(users));
-      })
-      .catch((error) => {
-        resolve(Result.Error(error));
-      });
-  });
-};
-
-Route.withOutSecurity().noAuth().get("/users", getUsers).bind();
+Route.withOutSecurity().noAuth().post("/users", postUser).bind();

@@ -5,7 +5,7 @@ const Result = require("folktale/result");
 const Models = require("models");
 
 async function getUsers(req) {
-  logInfo("Request to create user");
+  logInfo("Request to fetch user");
 
   //   const userId = uuid.v4();
   //   const response = await db.execute(new CreateUserQuery(userId, name));
@@ -43,9 +43,9 @@ const getAllUsers = (req) => {
   // ]);
 
   return new Promise((resolve, reject) => {
-    Models.User.findAll()
+    Models.Users.findAll()
       .then((users) => {
-        resolve(Reult.Ok(users));
+        resolve(Result.Ok(users));
       })
       .catch((error) => {
         resolve(Result.Error(error));
