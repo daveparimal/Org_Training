@@ -4,7 +4,7 @@ const { whenResult } = require("lib");
 const {
   verifyResultOk,
   verifyResultError,
-} = require("../../../helpers/verifiers");
+} = require("../../../../helpers/verifiers");
 const Result = require("folktale/result");
 
 describe.only("result", () => {
@@ -46,13 +46,16 @@ describe.only("whenResult", () => {
     expect(response).to.eql('Ok: {"id":1,"name":"some user"}');
   });
 
-  it("should handle result Ok", async () => {
+  it("should handle result Error", async () => {
+    // prettier-ignore
     let data = Result.Error("some error");
 
     let response = await whenResult((user) => {
       return `Ok: ${JSON.stringify(user)}`;
     })(data);
 
-    expect(response).to.eql({ value: "some error" });
+    console.log(response.value);
+    // prettier-ignore
+    expect(response.value).to.eql("some error");
   });
 });
