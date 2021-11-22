@@ -1,2 +1,2 @@
-require("./apis/get-all-users");
-require("./apis/create-new-user");
+require("resources/users/apis/get-all-users.js");
+require("resources/users/apis/create-new-user.js");
